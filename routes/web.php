@@ -17,5 +17,11 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('index');
+Route::get('/fetch', 'HomeController@fetch')->name('fetch');
+Route::post('/add-product-list', 'HomeController@addProductList')->name('add-product-list');
+Route::post('/delete-product-list/{id}', 'HomeController@deleteProductList')->name('delete-product-list');
+
+
+
 Route::post('/addcart', 'HomeController@addcart')->name('addcart');
 Route::post('/checkout', 'HomeController@checkout')->name('checkout');

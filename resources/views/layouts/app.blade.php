@@ -67,9 +67,13 @@
                 </div>
             </div>
         </nav>
-        <main class="py-4">
+
+        {{-- Result --}}
+        <product-list :products="{{$products}}"></product-list>
+
+        {{-- <main class="py-4">
             @yield('content')
-        </main>
+        </main> --}}
 
       
     </div>

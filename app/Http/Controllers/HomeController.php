@@ -25,24 +25,37 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+  
+    public function fetch()
+    {   
+        $products = Product::all();
+        return $products;
+    }
+
+    public function addProductList(Request $request)
+    {
+        $product = new Product;
+        $product->name = $request->input('body.name');
+        $product->price = $request->input('body.price');
+        $product->save();
+    }
+
+    public function deleteProductList(Product $id)
+    {
+        $id->delete();
+    }
+
+
+
+
+
+    // ///////////////////////////////////////////////////////////////////////////////////////////////
+
     public function index(Request $request)
     {   
-        $qproduct = Product::query();
+        $products = Product::all();
 
-        if($name = $request->input('name')){
-            $qproduct->where('name', 'like', "%$name%");
-        }
-        $products =  $qproduct->get();
-
-        $users = User::get();
-        $carts = Cart::with('user', 'product')->where('user_id',auth()->user()->id)->get();
-        $orders = Order::where('user_id',auth()->user()->id)->get();
-
-         if($request->wantsJson()){
-            return [$products, $carts, $users];
-        }
-
-        return view('home', compact('products', 'users', 'carts', 'orders'));
+        return view('layouts.app', compact('products'));
     }
 
     public function addcart(Request $request)
